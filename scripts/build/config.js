@@ -4,6 +4,7 @@ const replace = require('rollup-plugin-replace')
 const npmResolve = require('rollup-plugin-node-resolve')
 const common = require('rollup-plugin-commonjs')
 const copy = require('rollup-plugin-copy')
+const typescript = require('rollup-plugin-typescript')
 const version = process.env.VERSION || require('../../package.json').version
 const banner =
   `/**
@@ -16,13 +17,13 @@ const resolve = _path => path.resolve(__dirname, '../../', _path)
 
 const configs = {
   umdDev: {
-    input: resolve('src/main.js'),
+    input: resolve('src/main.ts'),
     file: resolve('dist/we-cropper.js'),
     format: 'umd',
     env: 'development'
   },
   umdProd: {
-    input: resolve('src/main.js'),
+    input: resolve('src/main.ts'),
     file: resolve('dist/we-cropper.min.js'),
     format: 'umd',
     env: 'production'
@@ -35,6 +36,11 @@ function genConfig (name) {
     input: opts.input,
     plugins: [
       npmResolve(),
+      typescript({
+        lib: ["es5", "es6", "dom"],
+        target: "es5",
+        typeRoots: ["../../types"]
+      }),
       common(),
       replace({
         __VERSION__: JSON.stringify(version)

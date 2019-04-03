@@ -77,18 +77,5 @@ Page({
     this.setData({ cropperOpt })
 
     this.cropper = new WeCropper(cropperOpt)
-      .on('ready', (ctx) => {
-        console.log(`wecropper is ready for work!`)
-      })
-      .on('beforeImageLoad', (ctx) => {
-        wx.showToast({
-          title: '上传中',
-          icon: 'loading',
-          duration: 20000
-        })
-      })
-      .on('imageLoad', (ctx) => {
-        wx.hideToast()
-      })
   }
 })

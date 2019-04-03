@@ -11,8 +11,7 @@
   ],
   "window": {
     "backgroundTextStyle": "dark",
-    "navigationBarTitleText": "示例",
-    "navigationBarTextStyle": "#fff"
+    "navigationBarTitleText": "示例"
   },
   "networkTimeout": {
     "request": 10000,

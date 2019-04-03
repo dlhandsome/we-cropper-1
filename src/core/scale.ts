@@ -7,8 +7,10 @@
  * @param touch1 第二指touch对象
  * @returns {*}
  */
-export const getNewScale = (oldScale, oldDistance, zoom, touch0, touch1) => {
-  let xMove, yMove, newDistance
+export const getNewScale = (oldScale: number, oldDistance: number, zoom: number, touch0: any, touch1: any): number => {
+  let xMove: number
+  let yMove: number
+  let newDistance: number
   // 计算二指最新距离
   xMove = Math.round(touch1.x - touch0.x)
   yMove = Math.round(touch1.y - touch0.y)

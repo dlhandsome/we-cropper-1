@@ -1,16 +1,14 @@
 import {
   getDevice
-} from './utils/helper'
+} from '../utils/helper'
 
 const {
   windowWidth
 } = getDevice()
 
-export default function prepare () {
-  const self = this
-
+export default function prepare (vm) {
   // v1.4.0 版本中将不再自动绑定we-cropper实例
-  self.attachPage = () => {
+  vm.attachPage = () => {
     const pages = getCurrentPages()
     // 获取到当前page上下文
     const pageContext = pages[pages.length - 1]
@@ -25,24 +23,26 @@ export default function prepare () {
           '// ...\n' +
           'this.mycropper.getCropperImage()'
         )
-        return self
+        return vm
       }
     })
   }
 
-  self.createCtx = () => {
+  vm.createCtx = () => {
     const {
       id,
       targetId
-    } = self
+    } = vm
 
     if (id) {
-      self.ctx = self.ctx || wx.createCanvasContext(id)
-      self.targetCtx = self.targetCtx || wx.createCanvasContext(targetId)
+      vm.ctx = vm.ctx || wx.createCanvasContext(id)
+      vm.targetCtx = vm.targetCtx || wx.createCanvasContext(targetId)
     } else {
       console.error(`constructor: create canvas context failed, 'id' must be valuable`)
     }
   }
 
-  self.deviceRadio = windowWidth / 750
+  vm.deviceRadio = windowWidth / 750
+  vm.attachPage()
+  vm.createCtx()
 }
